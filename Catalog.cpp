@@ -14,19 +14,45 @@ using namespace std;
 bool	Catalog::AddCategory(uint64_t categoryNumber, const string& name)
 {
 	// to be completed
-	return true;
+	if (category.find(categoryNumber) == category.end())
+	{
+		categoryname s;
+		s.catename = name;
+		category[categoryNumber] = s;
+		return true;
+	}
+
+	else
+		return false;
 }
 
 bool	Catalog::AddProduct(uint64_t categoryNumber, uint64_t productNumber, const string& name)
 {
 	// to be completed
-	return true;
+	categoryname s;
+	map<int, categoryname>::iterator temp;
+	map<int, string>::iterator it;
+	for (temp = category.begin(); temp != category.end(); temp++)
+	{
+		if (temp->first == categoryNumber)
+		{
+			if (s.product.find(productNumber) == s.product.end())
+			{
+				s.product[productNumber] = name;
+				return true;
+			}
+			
+		}
+		
+	}
+	return false;
+	
 }
 
-uint64_t	Catalog::GetCategoryCount()
+uint64_t Catalog::GetCategoryCount()
 {
 	// to be completed
-	return 0;
+	return number_of_categories;
 }
 
 int64_t	Catalog::GetProductCount(uint64_t categoryNumber)
@@ -35,15 +61,12 @@ int64_t	Catalog::GetProductCount(uint64_t categoryNumber)
 	return 1;
 }
 
-bool	Catalog::Load(const string& fileName)
+bool Catalog::Load(const string& fileName)
 {
 	// to be completed
 	uint64_t categoryNumber,productNumber;
 	std::string categoryname, productname, line, tag;
 	std::fstream myfile(fileName);
-	number_of_products = 0;
-	number_of_categories = 0;
-
 
 	if (myfile.is_open())
 	{
@@ -84,6 +107,7 @@ bool	Catalog::Load(const string& fileName)
 		throw std::invalid_argument("Could not open file" + fileName);
 		return false;
 	}
+
 }
 
 //****************************************************************************************
@@ -117,4 +141,3 @@ bool	Catalog::ShowAll(ostream& stream)
 	// to be completed
 	return true;
 }
-
