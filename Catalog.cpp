@@ -19,6 +19,7 @@ bool	Catalog::AddCategory(uint64_t categoryNumber, const string& name)
 		categoryname s;
 		s.catename = name;
 		category[categoryNumber] = s;
+		number_of_categories++;
 		return true;
 	}
 
@@ -39,6 +40,7 @@ bool	Catalog::AddProduct(uint64_t categoryNumber, uint64_t productNumber, const 
 			if (s.product.find(productNumber) == s.product.end())
 			{
 				s.product[productNumber] = name;
+				number_of_products++;
 				return true;
 			}
 			
@@ -58,7 +60,7 @@ uint64_t Catalog::GetCategoryCount()
 int64_t	Catalog::GetProductCount(uint64_t categoryNumber)
 {
 	// to be completed
-	return 1;
+	return number_of_products;
 }
 
 bool Catalog::Load(const string& fileName)
