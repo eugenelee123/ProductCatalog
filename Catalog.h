@@ -38,7 +38,7 @@ public:
 
 class Catalog
 {
-	
+	public:
 	//Given a category number and name, add it to the catalog. It will have an empty product list. 
 	//Return false if the category number already exists in the catalog, true otherwise.
 	bool		AddCategory(uint64_t categoryNumber, const string& name);
