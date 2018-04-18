@@ -79,21 +79,14 @@ bool Catalog::Load(const string& fileName)
 				getline(ss, tag, '\t');
 				ss >> categoryNumber;
 				std::getline(ss, categoryname);
-				std::cout << "categoryNumber: " << categoryNumber << std::endl;
-				std::cout << "categoryname: " << categoryname << std::endl;
 				AddCategory(categoryNumber, categoryname);
-				number_of_categories++;
 			}
 
 			else if (position == std::string::npos)
 			{
 				ss >> productNumber;
 				getline(ss, productname);
-				std::cout << "categoryNumber: " << categoryNumber << std::endl;
-				std::cout << "productNumber: " << productNumber << std::endl;
-				std::cout << "productname: " << productname << std::endl;
 				AddProduct(categoryNumber, productNumber, productname);
-				number_of_products++;
 			}
 
 
