@@ -14,7 +14,15 @@ using namespace std;
 bool	Catalog::AddCategory(uint64_t categoryNumber, const string& name)
 {
 	// to be completed
-	if (category.find(categoryNumber) == category.end())
+	if(category.empty())
+	{
+		categoryname s;
+		s.catename = name;
+		category[categoryNumber] = s;
+		number_of_categories++;
+		return true;
+	}
+	else if(category.find(categoryNumber) == category.end())
 	{
 		categoryname s;
 		s.catename = name;
