@@ -6,28 +6,24 @@
 #include    <fstream>
 #include    <iostream>
 #include    <string>
-
 #include    "Catalog.h"
 
 using namespace std;
 
 bool    Catalog::AddCategory(uint64_t categoryNumber, const string& name)
 {
-    // to be completed
     if(categorymap.empty())
     {
-        productmap s;
+        product s;
         s.catename = name;
         categorymap[categoryNumber] = s;
-        number_of_categories++;
         return true;
     }
     else if(categorymap.find(categoryNumber) == categorymap.end())
     {
-        productmap s;
+        product s;
         s.catename = name;
         categorymap[categoryNumber] = s;
-        number_of_categories++;
         return true;
     }
     
@@ -37,38 +33,30 @@ bool    Catalog::AddCategory(uint64_t categoryNumber, const string& name)
 
 bool    Catalog::AddProduct(uint64_t categoryNumber, uint64_t productNumber, const string& name)
 {
-    // to be completed
-    productmap s;
-    map<int, productmap>::iterator temp;
-    map<int, string>::iterator it;
-    for (temp = categorymap.begin(); temp != categorymap.end(); temp++)
-    {
-        if (temp->first == categoryNumber)
-        {
-            if (s.product.find(productNumber) == s.product.end())
-            {
-                s.product[productNumber] = name;
-                number_of_products++;
-                return true;
-            }
-            
-        }
-        
+    if(categorymap.empty()){
+        categorymap[categoryNumber].productmap[productNumber]=name;
+        return true;
     }
-    return false;
     
+    else if(categorymap.find(categoryNumber)==categorymap.end()){
+        categorymap[categoryNumber].productmap[productNumber]=name;
+        return true;
+    }
+    else
+        return false;
 }
 
 uint64_t Catalog::GetCategoryCount()
 {
-    // to be completed
-    return number_of_categories;
+    return categorymap.size();
 }
 
 int64_t    Catalog::GetProductCount(uint64_t categoryNumber)
 {
-    // to be completed
-    return number_of_products;
+    if(categorymap.find(categoryNumber)!=categorymap.end()){
+        return categorymap[categoryNumber].productmap.size();
+    }
+    return 0;
 }
 
 bool Catalog::Load(const string& fileName)
@@ -98,8 +86,6 @@ bool Catalog::Load(const string& fileName)
                 getline(ss, productname);
                 AddProduct(categoryNumber, productNumber, productname);
             }
-            
-            
         }
         myfile.close();
         return true;
