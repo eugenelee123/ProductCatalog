@@ -33,13 +33,13 @@ bool    Catalog::AddCategory(uint64_t categoryNumber, const string& name)
 
 bool    Catalog::AddProduct(uint64_t categoryNumber, uint64_t productNumber, const string& name)
 {
-    if(categorymap.empty()){
-        categorymap[categoryNumber].productmap[productNumber]=name;
+        if(categorymap[categoryNumber].productmap.empty()){
+        categorymap[categoryNumber].productmap[productNumber] = name;
         return true;
-    }
+        }
     
-    else if(categorymap.find(categoryNumber)==categorymap.end()){
-        categorymap[categoryNumber].productmap[productNumber]=name;
+    else if(categorymap.find(categoryNumber) == categorymap.end()){
+        categorymap[categoryNumber].productmap[productNumber] = name;
         return true;
     }
     else
@@ -54,7 +54,7 @@ uint64_t Catalog::GetCategoryCount()
 int64_t    Catalog::GetProductCount(uint64_t categoryNumber)
 {
     if(categorymap.find(categoryNumber)!=categorymap.end()){
-        return categorymap[categoryNumber].productmap.size();
+    return categorymap[categoryNumber].productmap.size();
     }
     return 0;
 }
@@ -115,18 +115,18 @@ bool Catalog::Load(const string& fileName)
 
 bool    Catalog::ShowProduct(ostream& stream, uint64_t categoryNumber, uint64_t productNumber)
 {
-    // to be completed
+    
     return true;
 }
 
 bool    Catalog::ShowCategory(ostream& stream, uint64_t categoryNumber)
 {
-    // to be completed
+    
     return true;
 }
 
 bool    Catalog::ShowAll(ostream& stream)
 {
-    // to be completed
+    
     return true;
 }
