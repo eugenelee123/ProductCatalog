@@ -25,12 +25,12 @@ using namespace std;
 //****************************************************************************************
 //
 //    CLASSES, TYPEDEFS AND STRUCTURES
-class productmap
+class product
 {
 public:
-    string catename;
-    map<int, string> product;
     friend class Catalog;
+    string catename;
+    map<int, string> productmap;
     
 };
 //****************************************************************************************
@@ -68,15 +68,9 @@ public:
     //Show the entire catalog, category by category, in order by category number.Under each category, show its products in order by product number.Use the same format as the text file in Load.
     bool        ShowAll(ostream& stream);
     //friend class category;
+    
 private:
-    int number_of_products = 0;
-    int number_of_categories = 0;
-    map<int, productmap> categorymap;
-    
-    
-    
-    // map declaration goes here
-    
+    map<int, product> categorymap;
 };
 
 //****************************************************************************************
