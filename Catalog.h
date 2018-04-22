@@ -72,7 +72,7 @@ public:
     //friend class category;
     
 private:
-    map<int, product> categorymap;
+    map<int, Product> categorymap;
 };
 
 //****************************************************************************************
