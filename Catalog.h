@@ -25,7 +25,7 @@ using namespace std;
 //****************************************************************************************
 //
 //    CLASSES, TYPEDEFS AND STRUCTURES
-class product
+class Product
 {
 public:
     friend class Catalog;
