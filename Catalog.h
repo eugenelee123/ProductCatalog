@@ -32,6 +32,8 @@ public:
     string catename;
     map<int, string> productmap;
     
+	Product() {}
+	Product(string name) { this->catename = name; }
 };
 //****************************************************************************************
 
