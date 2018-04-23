@@ -90,8 +90,7 @@ bool Catalog::Load(const string& fileName)
 		return true;
 	}
 	else
-	{	//Error checking
-		throw std::invalid_argument("Could not open file" + fileName);
+	{
 		return false;
 	}
 }
