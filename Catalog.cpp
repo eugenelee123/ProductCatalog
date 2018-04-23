@@ -112,8 +112,10 @@ bool Catalog::Load(const string& fileName)
 
 bool    Catalog::ShowProduct(ostream& stream, uint64_t categoryNumber, uint64_t productNumber)
 {
+	//Iterator to tranverse through the map
 	map<int, string>::iterator temp;
 
+	//Checks if both the category number and the product number exists in the two separate maps, if so it will then proceed to the provided key and iterate through its value that is also a map.
 	if (categorymap.find(categoryNumber) != categorymap.end() && categorymap[categoryNumber].productmap.find(productNumber) != categorymap[categoryNumber].productmap.end())
 	{
 		for (temp = categorymap[categoryNumber].productmap.begin(); temp != categorymap[categoryNumber].productmap.end(); temp++)
@@ -132,17 +134,19 @@ bool    Catalog::ShowProduct(ostream& stream, uint64_t categoryNumber, uint64_t 
 
 bool    Catalog::ShowCategory(ostream& stream, uint64_t categoryNumber)
 {
+	//Iterators to tranverse through the maps
 	map<int, string>::iterator temp;
 	map<int, Product>::iterator it;
 
-	if (categorymap.find(categoryNumber) != categorymap.end())
+	
+	if (categorymap.find(categoryNumber) != categorymap.end()) //Checks if the category number exists in the map(catalog) 
 	{
-		for (it = categorymap.begin(); it != categorymap.end(); it++)
+		for (it = categorymap.begin(); it != categorymap.end(); it++) //Iterates through the category map until it finds a key that matches the provided category number, then outputs both its key and value
 		{
 			if (it->first == categoryNumber)
 			{
 				stream << "Category\t" << it->first << "\t" << it->second.catename << endl;
-				for (temp = categorymap[categoryNumber].productmap.begin(); temp != categorymap[categoryNumber].productmap.end(); temp++)
+				for (temp = categorymap[categoryNumber].productmap.begin(); temp != categorymap[categoryNumber].productmap.end(); temp++) //Iterates through a given category and outputs both the product name and number
 				{
 					stream << temp->first << "\t" << temp->second << endl;
 				}
@@ -158,8 +162,10 @@ bool    Catalog::ShowCategory(ostream& stream, uint64_t categoryNumber)
 
 bool    Catalog::ShowAll(ostream& stream)
 {
+	//Iterators to tranverse through the maps
 	map<int, string>::iterator temp;
 	map<int, Product>::iterator it;
+	
 	if (categorymap.empty())
 		return false;
 	
