@@ -18,7 +18,6 @@ bool    Catalog::AddCategory(uint64_t categoryNumber, const string& name)
 		categorymap[categoryNumber] = s;
 		return true;
 	}
-
 	else
 		return false;
 }
@@ -26,7 +25,8 @@ bool    Catalog::AddCategory(uint64_t categoryNumber, const string& name)
 bool    Catalog::AddProduct(uint64_t categoryNumber, uint64_t productNumber, const string& name)
 {
 	//checks if the map is empty, if so add this value to the map
-	if (categorymap[categoryNumber].productmap.empty()) {
+	if (categorymap[categoryNumber].productmap.empty())
+	{
 		categorymap[categoryNumber].productmap[productNumber] = name;
 		return true;
 	}
@@ -35,7 +35,8 @@ bool    Catalog::AddProduct(uint64_t categoryNumber, uint64_t productNumber, con
 	//find if productNumber reaches end
 	if (categorymap.empty() || categorymap.find(categoryNumber) == categorymap.end())
 		return false;
-	else if (categorymap[categoryNumber].productmap.empty() || categorymap[categoryNumber].productmap.find(productNumber) == categorymap[categoryNumber].productmap.end()) {
+	else if (categorymap[categoryNumber].productmap.empty() || categorymap[categoryNumber].productmap.find(productNumber) == categorymap[categoryNumber].productmap.end()) 
+	{
 		categorymap[categoryNumber].productmap[productNumber] = name;
 		return true;
 	}
@@ -50,7 +51,8 @@ uint64_t Catalog::GetCategoryCount()
 
 int64_t    Catalog::GetProductCount(uint64_t categoryNumber)
 {
-	if (categorymap.find(categoryNumber) != categorymap.end()) {
+	if (categorymap.find(categoryNumber) != categorymap.end()) 
+	{
 		return categorymap[categoryNumber].productmap.size();
 	}
 	return 0;
@@ -58,7 +60,6 @@ int64_t    Catalog::GetProductCount(uint64_t categoryNumber)
 
 bool Catalog::Load(const string& fileName)
 {
-	// to be completed
 	uint64_t categoryNumber, productNumber;
 	std::string categoryname, productname, line, tag;
 	std::fstream myfile(fileName);
@@ -87,13 +88,11 @@ bool Catalog::Load(const string& fileName)
 		myfile.close();
 		return true;
 	}
-
 	else
 	{
 		throw std::invalid_argument("Could not open file" + fileName);
 		return false;
 	}
-
 }
 
 //****************************************************************************************
@@ -127,7 +126,6 @@ bool    Catalog::ShowProduct(ostream& stream, uint64_t categoryNumber, uint64_t 
 		}
 		return true;
 	}
-	
 	else
 		return false;
 }
@@ -138,7 +136,6 @@ bool    Catalog::ShowCategory(ostream& stream, uint64_t categoryNumber)
 	map<int, string>::iterator temp;
 	map<int, Product>::iterator it;
 
-	
 	if (categorymap.find(categoryNumber) != categorymap.end()) //Checks if the category number exists in the map(catalog) 
 	{
 		for (it = categorymap.begin(); it != categorymap.end(); it++) //Iterates through the category map until it finds a key that matches the provided category number, then outputs both its key and value
@@ -155,7 +152,6 @@ bool    Catalog::ShowCategory(ostream& stream, uint64_t categoryNumber)
 		
 			return true;
 	}
-
 	else
 		return false;
 }
@@ -168,7 +164,6 @@ bool    Catalog::ShowAll(ostream& stream)
 	
 	if (categorymap.empty())
 		return false;
-	
 	else
 	{
 		for (it = categorymap.begin(); it != categorymap.end(); it++)
