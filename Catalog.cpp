@@ -25,6 +25,7 @@ bool    Catalog::AddCategory(uint64_t categoryNumber, const string& name)
 
 bool    Catalog::AddProduct(uint64_t categoryNumber, uint64_t productNumber, const string& name)
 {
+	//checks if the map is empty, if so add this value to the map
 	if (categorymap[categoryNumber].productmap.empty()) {
 		categorymap[categoryNumber].productmap[productNumber] = name;
 		return true;
@@ -99,7 +100,7 @@ bool Catalog::Load(const string& fileName)
 //
 //    Show... methods
 //
-//    The stream argument allows thess functions to write its output to any output stream,
+//    The stream argument allows these functions to write its output to any output stream,
 //    such as cout or a file, that the caller passes. The argument's name "stream" should
 //    be used just as you would use "cout":
 //
@@ -111,21 +112,67 @@ bool Catalog::Load(const string& fileName)
 
 bool    Catalog::ShowProduct(ostream& stream, uint64_t categoryNumber, uint64_t productNumber)
 {
+	map<int, string>::iterator temp;
 
-	return true;
+	if (categorymap.find(categoryNumber) != categorymap.end() && categorymap[categoryNumber].productmap.find(productNumber) != categorymap[categoryNumber].productmap.end())
+	{
+		for (temp = categorymap[categoryNumber].productmap.begin(); temp != categorymap[categoryNumber].productmap.end(); temp++)
+		{
+			if (temp->first == productNumber)
+			{
+				stream << temp->first << "\t" << temp->second << endl;
+			}
+		}
+		return true;
+	}
+	
+	else
+		return false;
 }
 
 bool    Catalog::ShowCategory(ostream& stream, uint64_t categoryNumber)
 {
+	map<int, string>::iterator temp;
+	map<int, Product>::iterator it;
+
 	if (categorymap.find(categoryNumber) != categorymap.end())
 	{
-		return true;
+		for (it = categorymap.begin(); it != categorymap.end(); it++)
+		{
+			if (it->first == categoryNumber)
+			{
+				stream << "Category\t" << it->first << "\t" << it->second.catename << endl;
+				for (temp = categorymap[categoryNumber].productmap.begin(); temp != categorymap[categoryNumber].productmap.end(); temp++)
+				{
+					stream << temp->first << "\t" << temp->second << endl;
+				}
+			}
+		}
+		
+			return true;
 	}
-	return false;
+
+	else
+		return false;
 }
 
 bool    Catalog::ShowAll(ostream& stream)
 {
-
-	return true;
+	map<int, string>::iterator temp;
+	map<int, Product>::iterator it;
+	if (categorymap.empty())
+		return false;
+	
+	else
+	{
+		for (it = categorymap.begin(); it != categorymap.end(); it++)
+		{
+			stream << "Category\t" << it->first << "\t" << it->second.catename << endl;
+			for (temp = it->second.productmap.begin(); temp != it->second.productmap.end(); temp++)
+			{
+				stream << temp->first << "\t" << temp->second << endl;
+			}
+		}
+		return true;
+	}
 }
