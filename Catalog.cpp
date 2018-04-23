@@ -11,9 +11,10 @@
 using namespace std;
 
 bool    Catalog::AddCategory(uint64_t categoryNumber, const string& name)
-{
+{	//Check if map is empty and iterate from the beginning to the end
 	if (categorymap.empty() || categorymap.find(categoryNumber) == categorymap.end())
 	{
+	//If the map is empty and the category doesn't exist in the map, add the category
 		Product s(name);
 		categorymap[categoryNumber] = s;
 		return true;
@@ -50,9 +51,9 @@ uint64_t Catalog::GetCategoryCount()
 }
 
 int64_t    Catalog::GetProductCount(uint64_t categoryNumber)
-{
+{	//Find the category using the categoryNumber
 	if (categorymap.find(categoryNumber) != categorymap.end()) 
-	{
+	{	//Find the product size and return it
 		return categorymap[categoryNumber].productmap.size();
 	}
 	return 0;
@@ -89,7 +90,7 @@ bool Catalog::Load(const string& fileName)
 		return true;
 	}
 	else
-	{
+	{	//Error checking
 		throw std::invalid_argument("Could not open file" + fileName);
 		return false;
 	}
@@ -120,7 +121,7 @@ bool    Catalog::ShowProduct(ostream& stream, uint64_t categoryNumber, uint64_t 
 		for (temp = categorymap[categoryNumber].productmap.begin(); temp != categorymap[categoryNumber].productmap.end(); temp++)
 		{
 			if (temp->first == productNumber)
-			{
+			{	//Outputs the products
 				stream << temp->first << "\t" << temp->second << endl;
 			}
 		}
@@ -136,15 +137,18 @@ bool    Catalog::ShowCategory(ostream& stream, uint64_t categoryNumber)
 	map<int, string>::iterator temp;
 	map<int, Product>::iterator it;
 
-	if (categorymap.find(categoryNumber) != categorymap.end()) //Checks if the category number exists in the map(catalog) 
-	{
-		for (it = categorymap.begin(); it != categorymap.end(); it++) //Iterates through the category map until it finds a key that matches the provided category number, then outputs both its key and value
+	//Checks if the category number exists in the map(catalog) 
+	if (categorymap.find(categoryNumber) != categorymap.end()) 
+	{	//Iterates through the category map until it finds a key that matches the provided category number, then outputs both its key and value
+		for (it = categorymap.begin(); it != categorymap.end(); it++) 
 		{
 			if (it->first == categoryNumber)
 			{
 				stream << "Category\t" << it->first << "\t" << it->second.catename << endl;
-				for (temp = categorymap[categoryNumber].productmap.begin(); temp != categorymap[categoryNumber].productmap.end(); temp++) //Iterates through a given category and outputs both the product name and number
+				//Iterates through a given category and outputs both the product name and number
+				for (temp = categorymap[categoryNumber].productmap.begin(); temp != categorymap[categoryNumber].productmap.end(); temp++) 
 				{
+					//Outputs the categories
 					stream << temp->first << "\t" << temp->second << endl;
 				}
 			}
@@ -161,16 +165,17 @@ bool    Catalog::ShowAll(ostream& stream)
 	//Iterators to tranverse through the maps
 	map<int, string>::iterator temp;
 	map<int, Product>::iterator it;
-	
+	//Checks if map is empty
 	if (categorymap.empty())
 		return false;
 	else
-	{
+	{	//Starts iterator at the beginning and checks until the end of the category map
 		for (it = categorymap.begin(); it != categorymap.end(); it++)
-		{
+		{	//Outputs categories
 			stream << "Category\t" << it->first << "\t" << it->second.catename << endl;
+			//Starts iterator at the beginning of the product map
 			for (temp = it->second.productmap.begin(); temp != it->second.productmap.end(); temp++)
-			{
+			{	//Outputs products
 				stream << temp->first << "\t" << temp->second << endl;
 			}
 		}
